@@ -10,7 +10,7 @@
 		display: flex;
 		width:100%;
 		box-sizing: border-box;
-		padding:.2rem;
+		padding:.5rem .2rem;
 		align-items: center;
 		img {
 			width:1rem;
@@ -21,6 +21,12 @@
 			margin-left:.2rem;
 			display: flex;
 			flex-direction: column;
+			span{
+				margin-top: .1rem;
+			}
+			span:first-child {
+				margin-top: none;
+			}
 		}
 	}
 	.list {
@@ -38,7 +44,9 @@
 			span {
 				flex: 1;
 				padding: 0 .2rem;
+				color: #000;
 			}
+			
 		}
 		a:last-child {
 			border-bottom:none;
@@ -72,11 +80,11 @@
 <template>
 	<div class="container">
 		<div class="msgBox">
-			<img src="">
+			<img :src="user.logo">
 			<div class="item">
-				<span></span>
-				<span>ID:</span>
-				<span>我的余额:</span>
+				<span>{{user.nickname}}</span>
+				<span>ID:{{user.id}}</span>
+				<span>我的余额:{{user.score}}</span>
 			</div>
 		</div>
 		<div class="list">
@@ -90,7 +98,7 @@
 				<span>充值记录</span>
 				<i class="arrow_right"></i>
 			</a>
-			<a class="item nb" v-link="{path:'/comsumeDetails'}">
+			<a class="item nb" v-link="{path:'/consumeDetails'}">
 				<i></i>
 				<span>消费记录</span>
 				<i class="arrow_right"></i>
@@ -111,7 +119,6 @@
 </template>
 <script>
 
-	import data from '../config/Mock'
 
 
 
@@ -119,6 +126,7 @@
 
 	import Request from '../config/request'
 	import Config from '../config/config'
+	import User from '../config/user'
 	
 	import bottomTab from '../components/bottomTab'
 
@@ -127,7 +135,11 @@
 			bottomTab
 		},
 		data () {
-			return {}
+			return {
+				user: {
+					
+				}
+			}
 		},
 		created(){
 
@@ -135,6 +147,7 @@
 
 		},
 		async ready () {
+			await this.getData();
 			this.$dispatch('isLoading',false);
 		},
 		beforeDestroy () {
@@ -142,10 +155,10 @@
 		},
 		methods: {
 			async getData(){
-				console.log('asd')
-				let res = await Request.get(Config.apiDomain + '/api/center')
-				if (res.status === 200) {
-					console.log(res.data)
+				let res = await Request.get(Config.apiDomain + '/user/getUserInfo?token='+User.token)
+				if (res.status === 200&&res.data) {
+					this.user = res.data
+					console.log(this.user)
 				}
 			}
 		}

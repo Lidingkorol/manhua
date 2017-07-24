@@ -70,12 +70,11 @@
                 scrolledTop: 0,
             }
         },
-        created () {
+        async created () {
 
 //            if(Weixin.isWeixin) Weixin.init();
             //User.init(this.$route.query);
             //if(!User.isLogin) window.location.href = Config.apiDomain+'/weixin/siteAuth';
-
 
 
         },
@@ -89,10 +88,14 @@
 			
         },
         methods: {
+        	async getUser(){
+        		window.location.href=Config.apiDomain+'?o_token=oiL_jjmF58lQA_76tZzb39Mlf7sA';
+        	},
             backTop(){
-                console.log(Weixin.isAndroid)
+                /*console.log(Weixin.isAndroid)
                 if(Weixin.isAndroid)  window.scrollTo(0,0);
-                else this.backTopEvent();
+                else this.backTopEvent();*/
+               	this.backTopEvent();
             },
 
             backTopEvent(){

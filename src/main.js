@@ -65,11 +65,11 @@ router.afterEach((transition) => {
 
     console.warn(nameTo)
 
-    if( nameTo != '/groupItem' && nameTo != '/groupStatus' && nameTo != '/cutShare' ){
+    /*if( nameTo != '/groupItem' && nameTo != '/groupStatus' && nameTo != '/cutShare' ){
         Weixin.init(()=>{
             Weixin.updateShare()
         });
-    }
+    }*/
 })
 
 router.redirect({

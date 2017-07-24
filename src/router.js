@@ -43,6 +43,12 @@ const routers = {
 			require(['./views/Advice.vue'], resolve);
 		}
 	},
+	'bookcase': {
+		title:'书架',
+		component (resolve) {
+			require(['./views/BookCase.vue'], resolve);
+		}
+	},
 
 };
 export default routers;

@@ -26,10 +26,10 @@
 <template>
 	<div class="bottomTab">
 		<div class="tabList">
-			<a>首页</a>
-			<a>书架</a>
-			<a>帮助</a>
-			<a>反馈</a>
+			<a v-link="{path:'/'}">首页</a>
+			<a v-link="{path:'/bookcase'}">书架</a>
+			<a v-link="{path:'/help'}">帮助</a>
+			<a v-link="{path:'/advice'}">反馈</a>
 			<a v-link="{path:'/recharge'}">充值</a>
 		</div>
 		<div class="bottom">
