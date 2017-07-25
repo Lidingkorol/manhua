@@ -68,14 +68,19 @@
 	<div class="container">
 		<div class="tab">
 			<div class="item">
-				<a :class="{active:nav===0}" @click="chooseNav(0)">最近阅读</a>
-				<a :class="{active:nav===1}" @click="chooseNav(1)">全部书架</a>
-				<a :class="{active:nav===2}" @click="chooseNav(2)">订阅作品</a>
+				<a :class="{active:nav===0}" @click="chooseNav(0)">人气</a>
+				<a :class="{active:nav===1}" @click="chooseNav(1)">点赞</a>
+				<a :class="{active:nav===2}" @click="chooseNav(2)">收藏</a>
 			</div>
 			<span class="curBg" :style="{left:nav*33.3+4+'%'}">
 		</div>
 		<div class="tabList">
 			<template v-if="hasBook">
+				<div class="type">
+					<a>周排行榜</a>
+					<a>月排行榜</a>
+					<a>总排行榜</a>
+				</div>
 				<div class="item" v-for="item in listData">
 					<img :src="item.c_cover">
 					<div class="contentBox">
@@ -106,9 +111,10 @@
 	import Request from '../config/request'
 	import Config from '../config/config'
 	import User from '../config/user'
+	import { Toast,Indicator,MessageBox } from 'mint-ui';
 	import bottomTab from '../components/bottomTab'
 	import noMore from '../components/nomore'
-	
+
 	export default {
 		components:{
 			bottomTab,
@@ -117,14 +123,18 @@
 		data () {
 			return {
 				nav:0,
-				page:1,
 				loading: false,
                 hasMore:true,
                 listData: [],     
                 length: 0,
                 fun:'',
                 hasBook:false,
-                url:''
+                formData:{
+                	token:User.token,
+                	sort:'w',
+                	rank:'click',
+                	page:1
+                }
 			}
 		},
 		created(){
@@ -144,7 +154,7 @@
 		methods: {
 			async chooseNav(i){
 				this.nav=i;
-				this.page=1;
+				this.formData.page=1;
 				this.loading=false;
 				this.hasMore=true;
 				this.listData=[];
@@ -152,25 +162,29 @@
 				this.hasBook=false;
 				switch(this.nav){
 					case 0:
-						await this.getData('/user/getRead');break;
+						this.formData.rank='click';break;
 					case 1:
-						await this.getData('/user/getKeep');break;
+						this.formData.rank='love';break;
 					case 2:
-						await this.getData('/user/getKeep');break;
+						this.formData.rank='keep';break;
 				}
+				await this.getData();
 				if(this.listData.length>0) {
 					this.hasBook=true;
 				}
 			},
-			async getData(url){
+			async chooseType(i) {
+				
+			},
+			async getData(){
                 if (this.loading) {
                     return false;
                 }
                 this.loading = true;
 
-                let res = await Request.post(Config.apiDomain + url,{data:{token:User.token,page:this.page}});
+                let res = await Request.post(Config.apiDomain + '/comics/getRanking',{data:this.formData});
                 if(res.status == 200 && !!res) {
-                    this.page++;
+                    this.formData.page++;
                     this.listData.push(...res.data);
 
                     let len = 0;

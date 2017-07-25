@@ -16,6 +16,15 @@ body{
 }
 
 
+
+.container {
+	background: #f2f2f2;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+
+
 /*  滚动条  */
 
 ::-webkit-scrollbar {

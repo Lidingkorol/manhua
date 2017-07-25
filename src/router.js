@@ -4,7 +4,7 @@
 const routers = {
     '/': {
         component (resolve) {
-            require(['./views/UserCenter.vue'], resolve);
+            require(['./views/Home.vue'], resolve);
         }
     },
     'recharge': {
@@ -49,6 +49,31 @@ const routers = {
 			require(['./views/BookCase.vue'], resolve);
 		}
 	},
-
+	//首页
+	'home': {
+		title:'首页',
+		component (resolve) {
+			require(['./views/Home.vue'], resolve);
+		}
+	},
+	//分类
+	'classify': {
+		title:'分类',
+		component (resolve) {
+			require(['./views/Classify.vue'], resolve);
+		}
+	},
+	'classifyDetail': {
+		title:'分类详情',
+		component (resolve) {
+			require(['./views/ClassifyDetail.vue'], resolve);
+		}
+	},
+	'rank': {
+		title:'排行',
+		component (resolve) {
+			require(['./views/Rank.vue'], resolve);
+		}
+	},
 };
 export default routers;

@@ -1,9 +1,4 @@
 <style scoped lang="less">
-	.container {
-		background: #f2f2f2;
-        min-height: 100vh;
-        box-sizing: border-box;
-	}
 	.mt20 {
 		margin-top: .4rem;
 	}

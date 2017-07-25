@@ -26,7 +26,7 @@
 <template>
 	<div class="bottomTab">
 		<div class="tabList">
-			<a v-link="{path:'/'}">首页</a>
+			<a v-link="{path:'/home'}">首页</a>
 			<a v-link="{path:'/bookcase'}">书架</a>
 			<a v-link="{path:'/help'}">帮助</a>
 			<a v-link="{path:'/advice'}">反馈</a>
