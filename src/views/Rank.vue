@@ -29,31 +29,108 @@
 		flex-direction: column;
 		padding: 0 .2rem;
 		background-color:#fff;
+		.type {
+			padding: .2rem 1rem;
+			display:flex;
+			align-items: center;
+			just-content:center;
+			border-bottom:1px  solid rgb(222,222,222);
+			a {
+				width: 2rem;
+				text-align: center;
+				line-height: .6rem;
+				color: #000;
+				background-color: #fff;
+				border: 1px solid rgb(249,55,79);
+			}
+			a.active {
+				color: #fff;
+				background-color: rgb(249,55,79);
+			}
+			a:nth-child(1) {
+				border-bottom-left-radius: 20px;
+				border-top-left-radius: 20px;
+				
+			}
+			a:nth-child(3) {
+				border-bottom-right-radius: 20px;
+				border-top-right-radius: 20px;
+			}
+			
+		}
 		.item {
 			border-bottom: 1px solid rgb(222,222,222);
 			display: flex;
 			align-items: center;
 			padding: .2rem 0;
-			
-			img {
-				width: 1.5rem;
+			position: relative;
+			>i {
+				position: absolute;
+				right: .2rem;
+				top: .2rem;
+				width: .4rem;
+				height: .4rem;
+				line-height: .4rem;
+				border-radius: 50%;
+				text-align: center;
+			}
+			>i:nth-child(1) {
+				background-color: rgb(249,55,79);
+				color: #fff;
+			}
+			>i:nth-child(2) {
+				background-color: rgb(253,135,48);
+				color: #fff;
+			}
+			>i:nth-child(3) {
+				background-color: rgb(66,148,199);
+				color: #fff;
+			}
+			.imgBox {
+				position: relative;
+				img {
+					width: 1.8rem;
+					border-radius: 10px;
+				}
+				span {
+					position: absolute;
+					bottom: .2rem;
+					width: 100%;
+					text-align: center;
+					color: #fff;
+					line-height: .5rem;
+					background-color: rgba(51,51,51,0.6);
+				}
 			}
 			.contentBox {
 				padding: 0 .1rem;
 				flex: 1;
 				display: flex;
 				flex-direction: column;
-				span {
+				p {
+					line-height: 0.4rem;
+			        overflow : hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
 					margin-top: .1rem;
+				}
+				>span {
+					margin-top: .1rem;
+				}
+				.classify {
+					margin-top: .1rem;
+					display: flex;
+					align-items: center;
+					span {
+						text-align: right;
+						flex: 1;
+					}
 				}
 				
 			}
-			a {
-				width: .8rem;
-				border:1px solid rgb(135,145,148);;
-				border-radius: 10px;
-				text-align: center;
-			}
+			
 		}
 		.noBook {
 			span {
@@ -75,20 +152,41 @@
 			<span class="curBg" :style="{left:nav*33.3+4+'%'}">
 		</div>
 		<div class="tabList">
-			<template v-if="hasBook">
 				<div class="type">
-					<a>周排行榜</a>
-					<a>月排行榜</a>
-					<a>总排行榜</a>
+					<a :class="{active:type===0}" @click="chooseType(0)">周排行榜</a>
+					<a :class="{active:type===1}" @click="chooseType(1)">月排行榜</a>
+					<a :class="{active:type===2}" @click="chooseType(2)">总排行榜</a>
 				</div>
-				<div class="item" v-for="item in listData">
-					<img :src="item.c_cover">
-					<div class="contentBox">
-						<p>{{item.c_name}}</p>
-						<span>上次看到<font style="color: rgb(253,135,48);margin-left:.1rem">{{item.chapter_name}}</font></span>
-						<span>更新至第{{item.c_total}}话</span>
+			<template v-if="hasBook">
+				<div class="item" v-for="item in listData" v-link="{path:'/comicsCenter',query:{ id:item.id}}">
+					<i>{{$index+1}}</i>
+					<div class="imgBox">
+						<img :src="item.cover_img">
+						<span>更新至第{{item.total_chapter}}话</span>
 					</div>
-					<a>续看</a>
+					<div class="contentBox">
+						<h2>{{item.c_name}}</h2>
+						<span>{{item.c_auth}}</span>
+						<p>{{item.c_info}}</p>
+						<div class="classify">
+							<template v-if="formData.rank=='click'">
+								<span v-if="formData.sort=='w'">{{item.w_click_num}}人点击</span>
+								<span v-if="formData.sort=='m'">{{item.m_click_num}}人点击</span>
+								<span v-if="formData.sort=='t'">{{item.t_click_num}}人点击</span>
+							</template>
+							<template v-if="formData.rank=='love'">
+								<span v-if="formData.sort=='w'">{{item.w_love_num}}人点赞</span>
+								<span v-if="formData.sort=='m'">{{item.m_love_num}}人点赞</span>
+								<span v-if="formData.sort=='t'">{{item.t_love_num}}人点赞</span>
+							</template>
+							<template v-if="formData.rank=='keep'">
+								<span v-if="formData.sort=='w'">{{item.w_keep_num}}人收藏</span>
+								<span v-if="formData.sort=='m'">{{item.m_keep_num}}人收藏</span>
+								<span v-if="formData.sort=='t'">{{item.t_keep_num}}人收藏</span>
+							</template>
+						</div>
+					</div>
+					
 				</div>
 			</template>
 			<template v-if="!hasBook">
@@ -123,6 +221,7 @@
 		data () {
 			return {
 				nav:0,
+				type:0,
 				loading: false,
                 hasMore:true,
                 listData: [],     
@@ -174,7 +273,25 @@
 				}
 			},
 			async chooseType(i) {
-				
+				this.type=i;
+				this.formData.page=1;
+				this.loading=false;
+				this.hasMore=true;
+				this.listData=[];
+				this.length=0;
+				this.hasBook=false;
+				switch(this.type){
+					case 0:
+						this.formData.sort='w';break;
+					case 1:
+						this.formData.sort='m';break;
+					case 2:
+						this.formData.sort='t';break;
+				}
+				await this.getData();
+				if(this.listData.length>0) {
+					this.hasBook=true;
+				}
 			},
 			async getData(){
                 if (this.loading) {

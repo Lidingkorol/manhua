@@ -80,7 +80,7 @@
 				<i></i>
 				<span>排行</span>
 			</a>
-			<a class="item">
+			<a class="item" v-link="{path:'/search'}">
 				<i></i>
 				<span>搜索</span>
 			</a>

@@ -75,5 +75,16 @@ const routers = {
 			require(['./views/Rank.vue'], resolve);
 		}
 	},
+	'search': {
+		title:'搜索',
+		component (resolve) {
+			require(['./views/Search.vue'], resolve);
+		}
+	},
+	'comicsCenter': {
+		component (resolve) {
+			require(['./views/ComicsCenter.vue'], resolve);
+		}
+	},
 };
 export default routers;

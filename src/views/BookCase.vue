@@ -76,7 +76,7 @@
 		</div>
 		<div class="tabList">
 			<template v-if="hasBook">
-				<div class="item" v-for="item in listData">
+				<div class="item" v-for="item in listData" v-link="{path:'/comicsCenter',query:{ id:item.id}}">
 					<img :src="item.c_cover">
 					<div class="contentBox">
 						<p>{{item.c_name}}</p>

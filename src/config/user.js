@@ -9,7 +9,7 @@ import Util from '../libs/util';
 class User{
 	constructor(
 		isLogin=false,
-		token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.IjEwMDAwMDE6MTUwMDk2ODMxNiI.ocXxBFLAntMZ-k2oBkQd90To7bAWScMjRYhN0dbgH7o',
+		token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.IjEwMDAwMDE6MTUwMTA1NDgwMyI.F9lZHVagOKIAAu6yiQw_Zgxj7H7_8216sYtCmyhZf7k',
 		timeout=0,
 		uid='',
 		openid='',
