@@ -38,6 +38,7 @@
 					
 					padding: 0 .3rem;
 					margin: 0 .2rem;
+					margin-top: .1rem;
 					border-radius: 50px;
 					line-height: .5rem;
 					color: #fff;

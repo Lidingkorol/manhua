@@ -86,5 +86,10 @@ const routers = {
 			require(['./views/ComicsCenter.vue'], resolve);
 		}
 	},
+	'chapter': {
+		component (resolve) {
+			require(['./views/Chapter.vue'], resolve);
+		}
+	},
 };
 export default routers;
