@@ -185,10 +185,10 @@
                 fun:'',
                 hasBook:false,
                 ketWordList:[],
-                page:1,
 				formData:{
 					token:User.token,
-					search:''
+					search:'',
+					page:1
 				}
 			}
 		},
@@ -227,13 +227,13 @@
 
                 let res = await Request.post(Config.apiDomain + '/comics/getSearch',{data:this.formData});
                 if(res.status == 200 && !!res) {
-                    this.page++;
+                    this.formData.page++;
                     this.listData.push(...res.data);
 
                     let len = 0;
                     if(res) len += res.data.length;
                     this.length+= len
-                    if(res.data.length<10) {
+                    if(res.data.length<6) {
                     	
                     	this.hasMore=false;
                     
@@ -245,6 +245,7 @@
                 this.loading=false;
             },
             async loadMore(){
+            	console.log(this.$els)
                 var pos = this.$els.getMore.getBoundingClientRect();
 
                 if (this.hasMore &&
@@ -284,7 +285,7 @@
 				this.hasMore=true;
 				this.listData=[];
 				this.length=0;
-				this.page=1;
+				this.formData.page=1;
 				console.log(this.formData.search)
 				await this.getData();
 			},
@@ -293,7 +294,7 @@
 				this.hasMore=true;
 				this.listData=[];
 				this.length=0;
-				this.page=1;
+				this.formData.page=1;
 				await this.getData();
 			}
 		}

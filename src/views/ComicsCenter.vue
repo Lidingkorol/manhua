@@ -106,10 +106,52 @@
 						border-radius: 5px;
 						width: 1rem;
 						text-align: center;
+						margin-top: .1rem;
 					}
 				}
-				
 			}
+		}
+		.comment {
+			.comment_hd {
+				display: flex;
+				padding-bottom: .2rem;
+				.add {
+					flex: 1;
+					text-align: right;
+				}
+			}
+			.comment_bd {
+				li {
+					border-top:1px solid rgb(222,222,222);
+					
+					.item_hd {
+						display: flex;
+						align-items: center;
+						img {
+							border-radius: 50%;
+							width: .8rem;
+							height: .8rem;
+						}
+						.name {
+							flex: 1;
+							padding: 0 .2rem;
+							p:last-child {
+								margin-top: .1rem;
+							}
+						}
+						.addLove {
+							width: .8rem;
+							
+						}
+					}
+					.item_bd {
+						padding:.2rem 0;
+					}
+				}
+				li:last-child {
+					border-bottom: 1px solid rgb(222,222,222);
+				}
+			} 
 		}
 	}
 	.bottomBtn {
@@ -147,7 +189,7 @@
 				</div>
 				<div class="detail">
 					<span>点击:{{comicsData.t_click_num}}次</span>
-					<span><i></i>{{comicsData.t_love_num}}次</span>
+					<span @click="addLove(1,id)"><i></i>{{comicsData.t_love_num}}次</span>
 				</div>
 			</div>
 			<img :src="comicsData.cover_img">
@@ -174,28 +216,58 @@
 					</div>
 					<div class="chapter_bd">
 						<ul>
-							<li v-for="item in charpterList" v-link="{path:'/chapter',query:{ charpterId:item.id}}">
+							<li v-for="item in chapterList" v-link="{path:'/chapter',query:{ chapterId:item.id}}">
 								{{item.ch_name}}
 							</li>
 						</ul>
 					</div>
 				</div>
 			</template>
+			<template v-if="nav===1">
+				<div class="comment">
+					<div class="comment_hd">
+						<span>最新</span>
+						<span>最热</span>
+						<div class="add">
+							<i></i>
+							<span v-link="{path:'/comment',query:{ comicsId:this.id}}">发表评论</span>
+						</div>
+					</div>
+					<ul class="comment_bd">
+						<li class="item" v-for="item in commentData">
+							<div class="item_hd">
+								<img :src="item.u_logo">
+								<div class="name">
+									<p>{{item.u_name}}</p>
+									<p>{{item.addtime}}</p>
+								</div>
+								<div class="addLove" @click="addLove(2,item.id)">
+									<i>aaaaa</i>
+									<span>{{item.love_num}}</span>
+								</div>
+							</div>
+							<div class="item_bd">
+								{{item.content}}
+							</div>
+						</li>
+					</ul>
+				</div>
+			</template>
 		</div>
 		<div class="bottomBtn">
-			<a>
+			<a v-link="{path:'/bookcase'}">
 				<i></i>
 				<span>书架</span>
 			</a>
-			<a>
+			<a @click="addKeep(id)">
 				<i></i>
 				<span>收藏</span>
 			</a>
-			<a>
+			<a v-link="{path:'/recharge'}">
 				<i></i>
 				<span>充值</span>
 			</a>
-			<a class="look">开始阅读</a>
+			<a class="look" v-link="{path:'/chapter',query:{chapterId:chapterList[0].id}}">开始阅读</a>
 		</div>
 		<bottom-tab></bottom-tab>
 	</div>
@@ -206,7 +278,7 @@
 	import Config from '../config/config'
 	import User from '../config/user'
 	import bottomTab from '../components/bottomTab'
-
+	import { Toast,Indicator,MessageBox } from 'mint-ui';
 
 	export default {
 		components:{
@@ -217,9 +289,17 @@
 				listData:[],
 				comicsData:{},
 				signList:[],
-				charpterList:[],
+				chapterList:[],
+				commentData:[],
 				nav:0,
-				sort:'asc'
+				sort:'asc',
+				id:'',
+				comment:{
+					id:'',
+					sort:'addtime',
+					page:1,
+					token:User.token
+				}
 			}
 		},
 		created(){
@@ -228,9 +308,11 @@
 		async ready () {
 			let query = this.$route.query
 			this.id = query.id;
+			this.comment.id = query.id;
 			await this.getSign();
 			await this.getComics();
 			await this.getChapter();
+			await this.getComment();
 			this.$dispatch('isLoading',false)
 		},
 		beforeDestroy () {
@@ -252,15 +334,44 @@
 			async getChapter(){
 				let res = await Request.post(Config.apiDomain + '/comics/getChapterListById',{data:{token:User.token,id:this.id,sort:this.sort}})
 				if (res.status === 200&&res.data) {
-					this.charpterList = res.data;
+					for(let i in res.data) {
+						this.chapterList.push(res.data[i]);
+					}
+				}
+			},
+			async getComment(){
+				let res = await Request.post(Config.apiDomain + '/comics/getCommentById',{data:this.comment})
+				if (res.status === 200&&res.data) {
+					this.commentData = res.data;
+					console.log(this.commentData)
+				}
+			},
+			async addLove(type,id){
+				let res = await Request.post(Config.apiDomain + '/comics/addLove',{data:{type:type,id:id,token:User.token}})
+				if (res.status === 200) {
+					Toast('点赞成功！');
+					if(type==2) {
+						await this.getComment();
+					}else {
+						await this.getComics();
+					}
+					
+				}
+			},
+			async addKeep(id){
+				let res = await Request.post(Config.apiDomain + '/comics/addKeep',{data:{id:id,token:User.token}})
+				if (res.status === 200) {
+					Toast('收藏成功！');
+					
+					
 				}
 			},
 			chooseNav:function(i){
 				this.nav = i;
 			},
 			async changeSort (i){
-				console.log(i)
-				console.log(this.charpterList)
+				this.sort = i;
+				this.chapterList.reverse();
 			}
 
 		}

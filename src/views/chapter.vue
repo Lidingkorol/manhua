@@ -32,7 +32,7 @@
 		},
 		async ready () {
 			let query = this.$route.query
-			this.chapterId = query.charpterId;
+			this.chapterId = query.chapterId;
 			await this.getComics();
 			this.$dispatch('isLoading',false)
 		},

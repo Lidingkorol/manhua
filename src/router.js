@@ -91,5 +91,10 @@ const routers = {
 			require(['./views/Chapter.vue'], resolve);
 		}
 	},
+	'comment': {
+		component (resolve) {
+			require(['./views/Comment.vue'], resolve);
+		}
+	},
 };
 export default routers;

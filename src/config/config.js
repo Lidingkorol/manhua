@@ -6,8 +6,7 @@ import Env from './env';
 let config = {
     env: Env,
     appName: '爱漫画',
-    apiDomain: 'http://mh.akdljfivoa.pw',    //测试
-    token:'oiL_jjmF58lQA_76tZzb39Mlf7sA',    //测试
+    apiDomain: 'http://mh.tenxiang048.top',    //测试
 
     shareName: '[爱漫画]',
     imgDomain: '',

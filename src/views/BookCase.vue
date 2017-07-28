@@ -152,11 +152,14 @@
 				this.hasBook=false;
 				switch(this.nav){
 					case 0:
-						await this.getData('/user/getRead');break;
+						this.url = '/user/getRead';
+						await this.getData(this.url);break;
 					case 1:
-						await this.getData('/user/getKeep');break;
+						this.url = '/user/getKeep';
+						await this.getData(this.url);break;
 					case 2:
-						await this.getData('/user/getKeep');break;
+						this.url = '/user/getKeep';
+						await this.getData(this.url);break;
 				}
 				if(this.listData.length>0) {
 					this.hasBook=true;
@@ -176,7 +179,7 @@
                     let len = 0;
                     if(res) len += res.data.length;
                     this.length+= len
-                    if(res.data.length<10) {
+                    if(res.data.length<5) {
                     	
                     	this.hasMore=false;
                     
@@ -193,7 +196,7 @@
                 if (this.hasMore &&
                     ((pos.top> 0 && window.innerHeight - pos.top> 0) ||
                     (pos.top <= 0 && pos.bottom >= 0))) {
-                    await this.getData();
+                    await this.getData(this.url);
                 }
             },
             throttle(func, wait, mustRun) {

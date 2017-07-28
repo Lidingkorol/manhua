@@ -71,14 +71,15 @@
 						</div>
 					</div>
 				</li>
+				<template v-if="!!length">
+		            <no-more v-el:get-more>
+		                <span v-if="hasMore">加载更多...</span>
+		                <span v-if="!hasMore">客官，到底啦</span>
+		            </no-more>
+		        </template>
 			</ul>
 		</div>
-		<template v-if="!!length">
-            <no-more v-el:get-more>
-                <span v-if="hasMore">加载更多...</span>
-                <span v-if="!hasMore">客官，到底啦</span>
-            </no-more>
-        </template>
+		
 		<bottom-tab></bottom-tab>
 	</div>
 </template>
@@ -136,7 +137,7 @@
                     let len = 0;
                     if(res) len += res.data.length;
                     this.length+= len
-                    if(res.data.length<10) {
+                    if(res.data.length<6) {
                     	
                     	this.hasMore=false;
                     

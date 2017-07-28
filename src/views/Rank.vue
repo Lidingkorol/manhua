@@ -307,7 +307,7 @@
                     let len = 0;
                     if(res) len += res.data.length;
                     this.length+= len
-                    if(res.data.length<10) {
+                    if(res.data.length<6) {
                     	
                     	this.hasMore=false;
                     
