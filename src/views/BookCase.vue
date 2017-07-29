@@ -9,6 +9,8 @@
 				line-height: .8rem;
 				flex: 1;
 				text-align: center;
+				color:rgb(71,83,89);
+    			font-size: .32rem;
 			}
 			a.active {
 				color: rgb(249,55,79);
@@ -44,7 +46,9 @@
 				display: flex;
 				flex-direction: column;
 				span {
-					margin-top: .1rem;
+					margin-top: .15rem;
+					font-size: .28rem;
+					color:rgb(135,145,148);
 				}
 				
 			}
@@ -79,7 +83,7 @@
 				<div class="item" v-for="item in listData" v-link="{path:'/comicsCenter',query:{ id:item.id}}">
 					<img :src="item.c_cover">
 					<div class="contentBox">
-						<p>{{item.c_name}}</p>
+						<h2>{{item.c_name}}</h2>
 						<span>上次看到<font style="color: rgb(253,135,48);margin-left:.1rem">{{item.chapter_name}}</font></span>
 						<span>更新至第{{item.c_total}}话</span>
 					</div>
@@ -93,7 +97,7 @@
 			</template>
 			<template v-if="!!length">
 	            <no-more v-el:get-more>
-	                <span v-if="hasMore">加载更多...</span>
+	                <span v-if="hasMore">加载更多...</span>0
 	                <span v-if="!hasMore">客官，到底啦</span>
 	            </no-more>
 	        </template>

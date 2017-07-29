@@ -9,6 +9,8 @@
 				line-height: .8rem;
 				flex: 1;
 				text-align: center;
+				color:rgb(71,83,89);
+				font-size: .32rem;
 			}
 			a.active {
 				color: rgb(249,55,79);
@@ -39,7 +41,8 @@
 				width: 2rem;
 				text-align: center;
 				line-height: .6rem;
-				color: #000;
+				color:#000;
+				font-size: .30rem;
 				background-color: #fff;
 				border: 1px solid rgb(249,55,79);
 			}
@@ -115,6 +118,10 @@
 					-webkit-line-clamp: 2;
 					-webkit-box-orient: vertical;
 					margin-top: .1rem;
+					font-size: .26rem;
+					color:rgb(135,145,148);
+					font-size: .28rem;
+					color:rgb(71,83,89);
 				}
 				>span {
 					margin-top: .1rem;
@@ -126,6 +133,8 @@
 					span {
 						text-align: right;
 						flex: 1;
+						font-size: .26rem;
+						color:rgb(135,145,148);
 					}
 				}
 				

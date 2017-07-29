@@ -33,10 +33,14 @@
 						-webkit-line-clamp: 2;
 						-webkit-box-orient: vertical;
 						margin-top: .1rem;
+						font-size: .26rem;
+						color:rgb(135,145,148);
 					}
 					span.auth {
 						margin-top: .1rem;
 						display: block;
+						font-size: .28rem;
+						color:rgb(71,83,89);
 					}
 					.msg {
 						display: flex;
@@ -44,6 +48,10 @@
 						margin-top: .1rem;
 						span:nth-child(2) {
 							flex: 1;
+						}
+						span {
+							font-size: .26rem;
+							color:rgb(135,145,148);
 						}
 					}
 				}

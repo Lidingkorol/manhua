@@ -6,8 +6,29 @@
 			display: flex;
 			flex-direction: column;
 			padding:.3rem 0;
+			align-items: center;
 			span {
 				text-align: center;
+				color:rgb(135,145,148);
+				font-size: .38rem;
+				margin-top: .1rem;
+			}
+			i {
+				background-size: 100%;
+				width: 1rem;
+				height: 1rem;
+			}
+			i.classify {
+				background-image: url(../images/1.png);
+			}
+			i.rank {
+				background-image: url(../images/2.png);
+			}
+			i.search {
+				background-image: url(../images/3.png);
+			}
+			i.recharge {
+				background-image: url(../images/4.png);
 			}
 		}
 	}
@@ -29,6 +50,8 @@
 					line-height: .6rem;
 					padding: 0 .4rem;
 					flex: 1;
+					color: #000;
+					font-size: .34rem;
 				}
 				a {
 					width: .8rem;
@@ -73,19 +96,19 @@
         </div>
 		<div class="tabList">
 			<a class="item" v-link="{path:'/classify'}">
-				<i></i>
+				<i class="classify"></i>
 				<span>分类</span>
 			</a>
 			<a class="item" v-link="{path:'/rank'}">
-				<i></i>
+				<i class="rank"></i>
 				<span>排行</span>
 			</a>
 			<a class="item" v-link="{path:'/search'}">
-				<i></i>
+				<i class="search"></i>
 				<span>搜索</span>
 			</a>
 			<a class="item" v-link="{path:'/recharge'}">
-				<i></i>
+				<i class="recharge"></i>
 				<span>充值</span>
 			</a>
 		</div>

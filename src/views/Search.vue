@@ -23,8 +23,11 @@
 		.searchKeyWord {
 			.title {
 				padding: 0 .2rem;
+				border-top: 1px solid rgb(222,222,222);
 				span {
 					line-height: .6rem;
+					font-size: .3rem;
+					color:rgb(71,83,89);
 				}
 			}
 			ul {

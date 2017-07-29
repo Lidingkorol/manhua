@@ -21,6 +21,8 @@
 			align-items:center;
 			span {
 				flex: 1;
+				font-size: .28rem;
+				color:rgb(71,83,89);
 			}
 		}
 		.item_hd:last-child {
@@ -32,6 +34,8 @@
 			p {
 				line-height: .6rem;
 				border-top: 1px solid rgb(222,222,222);
+				font-size: .26rem;
+				color:rgb(135,145,148);
 			}
 		}
 	}

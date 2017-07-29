@@ -18,6 +18,8 @@
 				span {
 					text-align: center;
 					line-height: .6rem;
+					font-size: .3rem;
+					color: rgb(71,83,89);
 				}
 			}
 		}

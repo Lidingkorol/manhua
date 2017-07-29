@@ -9,6 +9,7 @@
 				color: #fff;
 				line-height: .6rem;
 				text-align: center;
+				font-size: .3rem;
 			}
 		};
 		.bottom {
@@ -19,6 +20,12 @@
 			.item {
 				display: flex;
 				flex-direction: column;
+				flex:1;
+				span {
+					font-size: .28rem;
+					color:rgb(71,83,89);
+					line-height: .5rem;
+				}
 			}
 		}
 	}

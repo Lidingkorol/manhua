@@ -362,3 +362,79 @@ img[lazy=loading] {
     text-align: center;
     padding-top: 0.5rem;
 }
+
+
+
+
+.fontSize_60{
+    font-size:.6rem;
+}
+.fontSize_48{
+    font-size:.48rem;
+}
+.fontSize_42{
+    font-size:.42rem;
+}
+.fontSize_40{
+    font-size:.40rem;
+}
+.fontSize_38{
+    font-size:.38rem;
+}
+.fontSize_36{
+    font-size:.36rem;
+}
+.fontSize_34{
+    font-size:.34rem;
+}
+.fontSize_32{
+    font-size:.32rem;
+}
+
+.fontSize_30{
+    font-size:.30rem;
+}
+.fontSize_28{
+    font-size:.28rem;
+}
+.fontSize_26{
+    font-size:.26rem;
+}
+.fontSize_24{
+    font-size:.24rem;
+}
+.fontSize_20{
+    font-size:.20rem;
+}
+.fontSize_14{
+    font-size:.14rem;
+}
+
+
+
+.color_5{
+    color:rgb(29,37,40);
+}
+.color_6{
+    color:rgb(49,62,67);
+}
+.color_7{
+    color:rgb(71,83,89);
+}
+.color_8{
+    color:rgb(135,145,148);
+}
+.color_9{
+    color:rgb(242,242,242);
+}
+.color_10{
+    color:rgb(222,222,222);
+}
+
+.corlor_11{
+    color:rgb(246,246,247);
+}
+
+.color_12{
+    color:rgb(255,255,255)
+}

@@ -21,11 +21,17 @@
 			span {
 				line-height: .6rem;
 				padding: 0 .4rem;
+				font-size: .30rem;
+				color:rgb(71,83,89);
 			}
 		} 
 		.tips_bd {
 			border-top: 1px solid rgb(222,222,222);
 			padding-top:.2rem;
+			p {
+				color:rgb(135,145,148);
+				font-size: .28rem;
+			}
 		}
 	}
 	.recharge {
@@ -37,6 +43,8 @@
 			span {
 				line-height: .6rem;
 				padding: 0 .2rem;
+				font-size: .30rem;
+				color:rgb(71,83,89);
 			}
 		}
 		.recharge_bd {

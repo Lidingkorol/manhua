@@ -7,6 +7,7 @@ import VueResource from 'vue-resource';
 import App from 'components/app.vue';
 import Routers from './router';
 import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 import setWechatTitle from './libs/setWechatTitle'
 // import FastClick from './libs/fastclick'
 import vueTap from 'v-tap';
@@ -28,8 +29,13 @@ Vue.http.options.emulateHTTP = true;
 
 // 在拦截其中添加此属性即可
 
+
+
+
 Vue.http.interceptors.push((request, next) => {
-    // request.credentials = true
+	console.log('2')
+    //request.credentials = true
+    request.headers.set('Referer', 'ac.tc.qq.com');
     next()
 })
 

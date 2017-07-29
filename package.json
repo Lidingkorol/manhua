@@ -26,6 +26,7 @@
     "babel": "^6.3.13",
     "babel-core": "^6.3.21",
     "babel-loader": "^6.2.0",
+    "babel-plugin-component": "^0.10.0",
     "babel-plugin-transform-es2015-destructuring": "^6.19.0",
     "babel-plugin-transform-es2015-parameters": "^6.21.0",
     "babel-plugin-transform-object-rest-spread": "^6.20.2",

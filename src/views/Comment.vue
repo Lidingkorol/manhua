@@ -14,6 +14,7 @@
 		span {
 			text-align: right;
 			margin-top: .1rem;
+			color:rgb(135,145,148); 
 		}
 	}
 	
@@ -25,11 +26,12 @@
     	a {
 	    	background-color: rgb(239,55,55);
 	    	color: #fff;
+	    	font-size: .32rem;
 	    	width: 100%;
 	    	display: block;
 	    	text-align: center;
-	    	height: .8rem;
-	    	line-height: .8rem;
+	    	height: .7rem;
+	    	line-height: .7rem;
 	    	border-radius: 50px;
     	}
     }

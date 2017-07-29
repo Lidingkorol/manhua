@@ -31,6 +31,7 @@
 			flex-direction: column;
 			.auth {
 				margin-top: .1rem;
+				font-size: .28rem;
 			}
 			.label {
 				margin-top: .1rem;
@@ -42,10 +43,12 @@
 					height: .4rem;
 					text-align: center;
 					background-color: rgba(71,83,89,.6);
+					font-size: .26rem;
 				}
 			}
 			.detail {
 				margin-top: .1rem;
+				font-size: .26rem;
 			}
 		}
 	}
@@ -60,6 +63,8 @@
 				line-height: .8rem;
 				flex: 1;
 				text-align: center;
+				font-size: .3rem;
+				color:rgb(71,83,89);
 			}
 			a.active {
 				color: rgb(249,55,79);
@@ -82,6 +87,8 @@
 			border-bottom:1px solid rgb(222,222,222);
 			p {
 				line-height: .4rem;
+				color:rgb(135,145,148);
+				font-size: .28rem;
 			}
 			
 		}
@@ -89,6 +96,8 @@
 			.chapter_hd {
 				padding: .2rem 0;
 				display: flex;
+				font-size: .3rem;
+				color:rgb(71,83,89);
 				span:nth-child(1){
 					flex: 1;
 				}
@@ -107,6 +116,7 @@
 						width: 1rem;
 						text-align: center;
 						margin-top: .1rem;
+						color:rgb(135,145,148);
 					}
 				}
 			}
@@ -115,6 +125,8 @@
 			.comment_hd {
 				display: flex;
 				padding-bottom: .2rem;
+				font-size: .3rem;
+				color:rgb(71,83,89);
 				.add {
 					flex: 1;
 					text-align: right;
@@ -135,17 +147,26 @@
 						.name {
 							flex: 1;
 							padding: 0 .2rem;
+							p:first-child {
+								color:rgb(253,135,48);
+								font-size: .28rem;
+							}
 							p:last-child {
 								margin-top: .1rem;
+								font-size: .26rem;
+								color:rgb(135,145,148);
 							}
 						}
 						.addLove {
 							width: .8rem;
+							font-size: .26rem;
+							color:rgb(135,145,148);
 							
 						}
 					}
 					.item_bd {
 						padding:.2rem 0;
+						font-size: .28rem;
 					}
 				}
 				li:last-child {
@@ -168,6 +189,8 @@
 			text-align: center;
 			height: 1rem;
 			line-height: 1rem;
+			font-size: .32rem;
+			color:rgb(71,83,89);
 		}
 		a.look {
 			background: rgb(249,55,79);
@@ -267,7 +290,7 @@
 				<i></i>
 				<span>充值</span>
 			</a>
-			<a class="look" v-link="{path:'/chapter',query:{chapterId:chapterList[0].id}}">开始阅读</a>
+			<a class="look" v-link="{path:'/chapter',query:{chapterId:chapterId}}">开始阅读</a>
 		</div>
 		<bottom-tab></bottom-tab>
 	</div>
@@ -291,6 +314,7 @@
 				signList:[],
 				chapterList:[],
 				commentData:[],
+				chapterId:'',
 				nav:0,
 				sort:'asc',
 				id:'',
@@ -313,6 +337,7 @@
 			await this.getComics();
 			await this.getChapter();
 			await this.getComment();
+			this.chapterId = this.chapterList[0].id;
 			this.$dispatch('isLoading',false)
 		},
 		beforeDestroy () {
