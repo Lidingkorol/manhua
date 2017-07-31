@@ -83,12 +83,13 @@
 </style> 
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<!--  banner 焦点  -->
         <div class="swiper-container sw">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" >
-                    <img class="slide">
-                </div>
+                <a class="swiper-slide" v-for="item in dataList.banner" :href="item.link">
+                	<img class="slide" :src="item.img">
+                </a>
 
             </div>
             <!-- 如果需要分页器 -->
@@ -122,13 +123,14 @@
 					<a>更早</a>
 				</div>
 				<ul>
-					<li>
+					<li v-for="item in dataList.last">
 						<div class="imgBox">
-							<img src="">
-							<span></span>
+							<img :src="item.cover_img">
+							<span>{{item.updatetime}}</span>
 						</div>
 						<div class="contentBox">
-							
+							<span><i></i>{{item.t_click_num}}</span>
+							<p>{{item.c_name}}</p>
 						</div>
 					</li>
 				</ul>
@@ -146,24 +148,42 @@
 	import User from '../config/user'
 	import bottomTab from '../components/bottomTab'
 	import noMore from '../components/nomore'
+	import headerComponent from '../components/header'
 
 	export default {
 		components:{
 			bottomTab,
-			noMore
+			noMore,
+			headerComponent
 		},
 		data () {
-			return {}
+			return {
+				dataList:{},
+				status:{
+					c:true,
+					h:false,
+					b:false
+				}
+			}
 		},
 		created(){
 			this.$dispatch('isLoading',true)
 		},
-		ready () {
+		async ready () {
+			await this.getData();
 			this.$dispatch('isLoading',false)
 		},
 		beforeDestroy () {
 
 		},
-		methods: {}
+		methods: {
+			async getData(){
+				let res = await Request.post(Config.apiDomain + '/comics/home',{data:{token:User.token}})
+				if (res.status === 200) {
+					this.dataList = res.data;
+					console.log(this.dataList)
+				}
+			},
+		}
 	}
 </script>

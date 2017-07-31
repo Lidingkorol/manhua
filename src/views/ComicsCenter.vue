@@ -7,12 +7,12 @@
 			-webkit-filter: blur(20px); /* Chrome, Safari, Opera */
     		filter: blur(20px);
     		width: 100%;
-    		height: 3.3rem;
+    		height: 3.5rem;
     	}
 		>img {
 			bottom: -.5rem;
 			left: .5rem;
-			width:2rem;
+			width:2.2rem;
 			-webkit-filter: drop-shadow(3px 3px 3px gray); /* Chrome, Safari, Opera */
     		filter: drop-shadow(3px 3px 3px gray);
     		position:absolute;
@@ -20,21 +20,21 @@
 		}
 		.msgBox {
 			position: absolute;
-			left: 2.5rem;
+			left: 2.7rem;
 			right: 0;
 			bottom: 0;
-			height: 2rem;
+			height: 2.1rem;
 			padding: 0 .2rem;
 			box-sizing: border-box;
 			color: #fff;
 			display: flex;
 			flex-direction: column;
 			.auth {
-				margin-top: .1rem;
+				margin-top: .05rem;
 				font-size: .28rem;
 			}
 			.label {
-				margin-top: .1rem;
+				margin-top: .05rem;
 				span {
 					border-radius: 10px;
 					margin: 0 .1rem;
@@ -47,8 +47,16 @@
 				}
 			}
 			.detail {
-				margin-top: .1rem;
+				margin-top: .05rem;
 				font-size: .26rem;
+				display: flex;
+				span {
+					flex: 1;
+					i {
+						margin: 0 .1rem;
+					}
+					
+				}
 			}
 		}
 	}
@@ -117,8 +125,21 @@
 						text-align: center;
 						margin-top: .1rem;
 						color:rgb(135,145,148);
-					}
+					}				
 				}
+				a {
+					padding: 0 .2rem;
+					border: 1px solid rgb(222,222,222);
+					line-height: .6rem;
+					border-radius: 5px;
+					width: 2rem;
+					text-align: center;
+					margin: .1rem auto 0;
+					color:rgb(71,83,89);
+					font-size: .28rem;
+					display: block;
+					
+				}	
 			}
 		}
 		.comment {
@@ -127,9 +148,22 @@
 				padding-bottom: .2rem;
 				font-size: .3rem;
 				color:rgb(71,83,89);
+				span {
+					padding: 0 .2rem;
+				}
+				span:first-child {
+					border-right: 1px solid rgb(71,83,89);
+				}
 				.add {
 					flex: 1;
 					text-align: right;
+					i {
+						color:rgb(253,135,48);
+						
+					}
+					span {
+						padding: 0;
+					}
 				}
 			}
 			.comment_bd {
@@ -172,6 +206,7 @@
 				li:last-child {
 					border-bottom: 1px solid rgb(222,222,222);
 				}
+				
 			} 
 		}
 	}
@@ -191,6 +226,9 @@
 			line-height: 1rem;
 			font-size: .32rem;
 			color:rgb(71,83,89);
+			i {
+				color: rgb(253,135,48);
+			}
 		}
 		a.look {
 			background: rgb(249,55,79);
@@ -200,6 +238,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component></header-component>
 		<div class="header">
 			<div class="bg"></div>
 			<div class="msgBox">
@@ -212,7 +251,7 @@
 				</div>
 				<div class="detail">
 					<span>点击:{{comicsData.t_click_num}}次</span>
-					<span @click="addLove(1,id)"><i></i>{{comicsData.t_love_num}}次</span>
+					<span @click="addLove(1,id)"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{comicsData.t_love_num}}次</span>
 				</div>
 			</div>
 			<img :src="comicsData.cover_img">
@@ -239,10 +278,12 @@
 					</div>
 					<div class="chapter_bd">
 						<ul>
-							<li v-for="item in chapterList" v-link="{path:'/chapter',query:{ chapterId:item.id}}">
+							<li v-for="item in showList" v-link="{path:'/chapter',query:{ chapterId:item.id}}">
 								{{item.ch_name}}
 							</li>
 						</ul>
+						<a v-show="showList.length!==chapterList.length" @click="showAll">查看全部章节</a>
+						<a v-show="showList.length==chapterList.length" @click="hide">收回</a>
 					</div>
 				</div>
 			</template>
@@ -252,7 +293,7 @@
 						<span>最新</span>
 						<span>最热</span>
 						<div class="add">
-							<i></i>
+							<i class="fa fa-file-text" aria-hidden="true"></i>
 							<span v-link="{path:'/comment',query:{ comicsId:this.id}}">发表评论</span>
 						</div>
 					</div>
@@ -265,7 +306,7 @@
 									<p>{{item.addtime}}</p>
 								</div>
 								<div class="addLove" @click="addLove(2,item.id)">
-									<i>aaaaa</i>
+									<i class="fa fa-thumbs-up" aria-hidden="true"></i>
 									<span>{{item.love_num}}</span>
 								</div>
 							</div>
@@ -279,15 +320,15 @@
 		</div>
 		<div class="bottomBtn">
 			<a v-link="{path:'/bookcase'}">
-				<i></i>
+				<i class="fa fa-book" aria-hidden="true"></i>
 				<span>书架</span>
 			</a>
 			<a @click="addKeep(id)">
-				<i></i>
+				<i class="fa fa-star" aria-hidden="true"></i>
 				<span>收藏</span>
 			</a>
 			<a v-link="{path:'/recharge'}">
-				<i></i>
+				<i class="fa fa-credit-card" aria-hidden="true"></i>
 				<span>充值</span>
 			</a>
 			<a class="look" v-link="{path:'/chapter',query:{chapterId:chapterId}}">开始阅读</a>
@@ -301,15 +342,18 @@
 	import Config from '../config/config'
 	import User from '../config/user'
 	import bottomTab from '../components/bottomTab'
+	import headerComponent from '../components/header'
 	import { Toast,Indicator,MessageBox } from 'mint-ui';
 
 	export default {
 		components:{
-			bottomTab
+			bottomTab,
+			headerComponent
 		},
 		data () {
 			return {
 				listData:[],
+				showList:[],
 				comicsData:{},
 				signList:[],
 				chapterList:[],
@@ -362,7 +406,9 @@
 					for(let i in res.data) {
 						this.chapterList.push(res.data[i]);
 					}
+					this.showList = this.chapterList.slice(0,10);
 				}
+				
 			},
 			async getComment(){
 				let res = await Request.post(Config.apiDomain + '/comics/getCommentById',{data:this.comment})
@@ -387,8 +433,6 @@
 				let res = await Request.post(Config.apiDomain + '/comics/addKeep',{data:{id:id,token:User.token}})
 				if (res.status === 200) {
 					Toast('收藏成功！');
-					
-					
 				}
 			},
 			chooseNav:function(i){
@@ -396,7 +440,17 @@
 			},
 			async changeSort (i){
 				this.sort = i;
-				this.chapterList.reverse();
+				if(this.showList.length==this.chapterList.length) {
+					this.showList = this.chapterList.reverse();
+				}else {
+					this.showList = this.chapterList.reverse().slice(0,10);
+				}
+			},
+			showAll:function(){
+				this.showList = this.chapterList;
+			},
+			hide:function(){
+				this.showList = this.chapterList.slice(0,10);
 			}
 
 		}

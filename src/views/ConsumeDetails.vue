@@ -29,7 +29,7 @@
 </style>
 <template>
 	<div class="container">
-		
+		<header-component :status="status"></header-component>
 		<div class="item">
 			<div class="item_hd">
 				<span>购买时间</span>
@@ -59,12 +59,14 @@
  	import { Toast,Indicator,MessageBox } from 'mint-ui';
 	import bottomTab from '../components/bottomTab'
 	import noMore from '../components/nomore'
+	import headerComponent from '../components/header'
 
 
 	export default {
 		components:{
 			bottomTab,
 			noMore,
+			headerComponent
 		},
 		data () {
 			return {
@@ -75,7 +77,12 @@
                 type: 2,     
                 banner: null,
                 length: 0,
-                fun:''
+                fun:'',
+                status:{
+                	c:true,
+                	b:false,
+                	h:false
+                }
 			}
 		},
 		created(){

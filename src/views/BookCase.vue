@@ -70,6 +70,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="tab">
 			<div class="item">
 				<a :class="{active:nav===0}" @click="chooseNav(0)">最近阅读</a>
@@ -80,7 +81,7 @@
 		</div>
 		<div class="tabList">
 			<template v-if="hasBook">
-				<div class="item" v-for="item in listData" v-link="{path:'/comicsCenter',query:{ id:item.id}}">
+				<div class="item" v-for="item in listData" v-link="{path:'/comicsCenter',query:{ id:item.c_id}}">
 					<img :src="item.c_cover">
 					<div class="contentBox">
 						<h2>{{item.c_name}}</h2>
@@ -97,7 +98,7 @@
 			</template>
 			<template v-if="!!length">
 	            <no-more v-el:get-more>
-	                <span v-if="hasMore">加载更多...</span>0
+	                <span v-if="hasMore">加载更多...</span>
 	                <span v-if="!hasMore">客官，到底啦</span>
 	            </no-more>
 	        </template>
@@ -111,12 +112,14 @@
 	import Config from '../config/config'
 	import User from '../config/user'
 	import bottomTab from '../components/bottomTab'
+	import headerComponent from '../components/header'
 	import noMore from '../components/nomore'
 	
 	export default {
 		components:{
 			bottomTab,
-			noMore
+			noMore,
+			headerComponent
 		},
 		data () {
 			return {
@@ -128,7 +131,12 @@
                 length: 0,
                 fun:'',
                 hasBook:false,
-                url:''
+                url:'',
+                status:{
+                	c:true,
+					h:false,
+					b:false
+                }
 			}
 		},
 		created(){
@@ -138,6 +146,16 @@
 		},
 		async ready () {
 			this.chooseNav(0);
+			this.$nextTick(()=>{
+                this.sw = new Swiper('.home-sw',{
+                    autoplay: 2000,
+                    pagination: '.swiper-pagination',
+                    bulletActiveClass : 'bullet-active',
+                    bulletClass : 'bullet'
+                });
+                window.addEventListener('scroll', this.throttle(this.loadMore,250,500));
+
+            });
 			window.addEventListener('scroll', this.throttle(this.loadMore,250,500));
 			this.$dispatch('isLoading',false);
 			

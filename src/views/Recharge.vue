@@ -56,6 +56,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="tips">
 			<div class="tips_hd">
 				<i></i>
@@ -94,13 +95,21 @@
 <script>
 
 	import bottomTab from '../components/bottomTab'
-
+	import headerComponent from '../components/header'
+	
 	export default {
 		components:{
-			bottomTab
+			bottomTab,
+			headerComponent
 		},
 		data () {
-			return {}
+			return {
+				status:{
+					c:true,
+					b:false,
+					h:false
+				}
+			}
 		},
 		created(){
 			this.$dispatch('isLoading',true)

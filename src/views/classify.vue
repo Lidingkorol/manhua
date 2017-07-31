@@ -27,6 +27,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="classify">
 			<ul>
 				<li v-for="item in listData" @click="goDetail(item.name)">
@@ -35,6 +36,7 @@
 				</li>
 			</ul>
 		</div>
+		<bottom-tab></bottom-tab>
 	</div>
 </template>
 <script>
@@ -43,12 +45,21 @@
 	import Config from '../config/config'
 	import User from '../config/user'
 	import bottomTab from '../components/bottomTab'
-	import noMore from '../components/nomore'
+	import headerComponent from '../components/header'
 
 	export default {
+		components:{
+			headerComponent,
+			bottomTab
+		},
 		data () {
 			return {
-				listData:[]
+				listData:[],
+				status:{
+					c:true,
+					h:false,
+					b:true
+				}
 			}
 		},
 		created(){

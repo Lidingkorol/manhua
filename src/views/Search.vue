@@ -16,7 +16,14 @@
 				}
 				label {
 					background-color: rgb(249,55,79);
-					width: 1.5rem;
+					width: 1.2rem;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					i {
+						font-size: .4rem;
+						color: #fff;
+					}
 				}
 			}
 		}
@@ -112,11 +119,12 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="search">
 			<div class="searchBar">
 				<div class="searchBox">
 					<input placeholder="输入关键字" v-model="formData.search">
-					<label @click="getSearch()"></label>
+					<label @click="getSearch()"><i class="fa fa-search" aria-hidden="true"></i></label>
 				</div>
 			</div>
 			<div class="searchKeyWord">
@@ -173,11 +181,13 @@
 	import { Toast,Indicator,MessageBox } from 'mint-ui';
 	import bottomTab from '../components/bottomTab'
 	import noMore from '../components/nomore'
+	import headerComponent from '../components/header'
 
 	export default {
 		components:{
 			bottomTab,
-			noMore
+			noMore,
+			headerComponent
 		},
 		data () {
 			return {
@@ -188,6 +198,11 @@
                 fun:'',
                 hasBook:false,
                 ketWordList:[],
+                status:{
+                	h:true,
+                	c:false,
+                	b:false
+                },
 				formData:{
 					token:User.token,
 					search:'',

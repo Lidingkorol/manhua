@@ -61,6 +61,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="listBox">
 			<ul>
 				<li v-for="item in listData" v-link="{path:'/comicsCenter',query:{ id:item.id}}">
@@ -98,12 +99,14 @@
 	import User from '../config/user'
 	import { Toast,Indicator,MessageBox } from 'mint-ui';
 	import bottomTab from '../components/bottomTab'
+	import headerComponent from '../components/header'
 	import noMore from '../components/nomore'
 
 	export default {
 		components:{
 			bottomTab,
 			noMore,
+			headerComponent
 		},
 		data () {
 			return {
@@ -113,7 +116,12 @@
                 loading: false,
                 hasMore:true,
                 length: 0,
-                fun:''
+                fun:'',
+                status:{
+                	c:false,
+                	h:true,
+                	b:true
+                }
 			}
 		},
 		created(){
@@ -183,7 +191,8 @@
                         timeout = setTimeout(func, wait);
                     }
                 };
-            }
+            },
+           
 		}
 	}
 </script>

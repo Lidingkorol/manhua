@@ -152,6 +152,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="tab">
 			<div class="item">
 				<a :class="{active:nav===0}" @click="chooseNav(0)">人气</a>
@@ -221,11 +222,13 @@
 	import { Toast,Indicator,MessageBox } from 'mint-ui';
 	import bottomTab from '../components/bottomTab'
 	import noMore from '../components/nomore'
+	import headerComponent from '../components/header'
 
 	export default {
 		components:{
 			bottomTab,
-			noMore
+			noMore,
+			headerComponent
 		},
 		data () {
 			return {
@@ -237,6 +240,11 @@
                 length: 0,
                 fun:'',
                 hasBook:false,
+                status:{
+                	c:true,
+                	h:false,
+                	b:true
+                },
                 formData:{
                 	token:User.token,
                 	sort:'w',

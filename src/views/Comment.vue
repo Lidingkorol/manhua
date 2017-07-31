@@ -38,6 +38,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="inputBox">
 			<textarea placeholder="输入您的反馈意见" v-model="comment"  @keyup="isNum"></textarea>
 			<span>剩余{{number}}字</span>
@@ -56,10 +57,12 @@
 	import User from '../config/user'
  	import { Toast,Indicator,MessageBox } from 'mint-ui';
 	import bottomTab from '../components/bottomTab'
+	import headerComponent from '../components/header'
 	
 	export default {
 		components:{
-			bottomTab
+			bottomTab,
+			headerComponent
 		},
 		data () {
 			return {
@@ -67,6 +70,11 @@
 				number:170,
 				comment:'',
 				comicsId:'',
+				status:{
+					c:true,
+					h:false,
+					b:false
+				}
 				
 			}
 		},

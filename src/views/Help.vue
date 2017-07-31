@@ -74,6 +74,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="item" v-for="item in listData">
 			<div class="item_hd" @click="showDetail($index)">
 				<span>{{item.id}}、{{item.ask}}</span>
@@ -94,14 +95,22 @@
 	import User from '../config/user'
  	import { Toast,Indicator,MessageBox } from 'mint-ui';
 	import bottomTab from '../components/bottomTab'
-
+	import headerComponent from '../components/header'
+	
+	
 	export default {
 		components:{
 			bottomTab,
+			headerComponent
 		},
 		data () {
 			return {
-				listData:[]
+				listData:[],
+				status: {
+					c:true,
+					h:false,
+					b:false
+				}
 			}
 		},
 		created(){

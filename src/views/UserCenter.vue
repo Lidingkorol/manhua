@@ -58,6 +58,30 @@
 		.nb {
 			border:none;
 		}
+		i.icon {
+			width: .5rem;
+			height: .5rem;
+		}
+		i.icon-recharge {
+			background: url(../images/充值.png);
+			background-size: 100%;
+		}
+		i.icon-detail1 {
+			background:url(../images/充值记录2.png);
+			background-size: 100%;
+		}
+		i.icon-detail2 {
+			background: url(../images/消费记录 .png);
+			background-size: 100%;
+		}
+		i.icon-help {
+			background: url(../images/使用帮助.png);
+			background-size: 100%;
+		}
+		i.icon-advice {
+			background:url(../images/意见反馈 .png);
+			background-size: 100%;
+		}
 	}
 	
 	.arrow_right {
@@ -79,6 +103,7 @@
 </style>
 <template>
 	<div class="container">
+		<header-component :status="status"></header-component>
 		<div class="msgBox">
 			<img :src="user.logo">
 			<div class="item">
@@ -89,27 +114,27 @@
 		</div>
 		<div class="list">
 			<a class="item mt10" v-link="{path:'/recharge'}">
-				<i></i>
+				<i class="icon icon-recharge"></i>
 				<span>充值</span>
 				<i class="arrow_right"></i>
 			</a>
 			<a class="item" v-link="{path:'/rechargeDetails'}">
-				<i></i>
+				<i class="icon icon-detail1"></i>
 				<span>充值记录</span>
 				<i class="arrow_right"></i>
 			</a>
 			<a class="item nb" v-link="{path:'/consumeDetails'}">
-				<i></i>
+				<i class="icon icon-detail2"></i>
 				<span>消费记录</span>
 				<i class="arrow_right"></i>
 			</a>
 			<a class="item mt10" v-link="{path:'/help'}">
-				<i></i>
+				<i class="icon icon-help"></i>
 				<span>使用帮助</span>
 				<i class="arrow_right"></i>
 			</a>
 			<a class="item" v-link="{path:'/advice'}">
-				<i></i>
+				<i class="icon icon-advice"></i>
 				<span>意见反馈</span>
 				<i class="arrow_right"></i>
 			</a>
@@ -119,25 +144,24 @@
 </template>
 <script>
 
-
-
-
-
-
 	import Request from '../config/request'
 	import Config from '../config/config'
 	import User from '../config/user'
-	
 	import bottomTab from '../components/bottomTab'
+	import headerComponent from '../components/header'
 
 	export default {
 		components:{
-			bottomTab
+			bottomTab,
+			headerComponent
 		},
 		data () {
 			return {
-				user: {
-					
+				user: {},
+				status:{
+					c:false,
+					h:true,
+					b:true
 				}
 			}
 		},
